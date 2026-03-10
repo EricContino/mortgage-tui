@@ -8,13 +8,12 @@ import (
 )
 
 type config struct {
-	origBalance			float32
-	interestRate		float32
-	durationinMonths	int
-
+	origBalance      float32
+	interestRate     float32
+	durationinMonths int
 }
 
-func startRepl() {
+func startRepl(cfg *config) {
 	reader := bufio.NewScanner(os.Stdin)
 
 	for {
