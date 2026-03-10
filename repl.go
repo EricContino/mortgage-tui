@@ -9,7 +9,10 @@ import (
 
 type config struct {
 	origBalance      float32
+	currBalance      float32
 	interestRate     float32
+	monthlyPayment   float32
+	escrow           float32
 	durationinMonths int
 }
 
@@ -34,7 +37,7 @@ func startRepl(cfg *config) {
 
 		command, exists := getCommands()[commandName]
 		if exists {
-			err := command.callback(args...)
+			err := command.callback(cfg, args...)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -55,7 +58,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(...string) error
+	callback    func(*config, ...string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -69,6 +72,11 @@ func getCommands() map[string]cliCommand {
 			name:        "exit",
 			description: "Exits the program",
 			callback:    commandExit,
+		},
+		"new": {
+			name:        "new",
+			description: "Create a new mortgage",
+			callback:    commandNew,
 		},
 	}
 }
