@@ -8,12 +8,13 @@ import (
 )
 
 type config struct {
-	origBalance      float32
-	currBalance      float32
-	interestRate     float32
-	monthlyPayment   float32
-	escrow           float32
+	origBalance      float64
+	currBalance      float64
+	interestRate     float64
+	monthlyPayment   float64
+	escrow           float64
 	durationinMonths int
+	monthlyEscrow    float64
 }
 
 func startRepl(cfg *config) {
@@ -77,6 +78,11 @@ func getCommands() map[string]cliCommand {
 			name:        "new",
 			description: "Create a new mortgage",
 			callback:    commandNew,
+		},
+		"print": {
+			name:        "print",
+			description: "Prints mortgage values",
+			callback:    commandPrint,
 		},
 	}
 }
